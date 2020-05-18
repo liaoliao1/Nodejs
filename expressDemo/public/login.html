@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./reset.css">
+    <title>登录</title>
+    <style>
+        .register {
+            background-color: #bfa;
+            margin: 20px auto;
+            width: 500px;
+            height: 150px;
+        }
+
+        ul li {
+            padding-top: 20px;
+            margin-left: 20px;
+        }
+
+        ul span {
+            display: inline-block;
+            width: 70px;
+        }
+
+        ul li:last-child {
+            margin-left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register">
+        <form action="http://localhost:3000/login" method="POST">
+            <ul>
+                <li> <span>邮箱:</span><input type="text" name="email"></li>
+
+                <li> <span>密码:</span><input type="password" name="password"></li>
+
+                <li><button type="submit">登录</button></li>
+            </ul>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

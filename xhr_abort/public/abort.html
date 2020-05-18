@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击取消请求</title>
+</head>
+<body>
+    <input type="button" value="点击发送请求" id="bt1">
+    <input type="button" value="点击取消请求" id="bt2">
+
+    <script>
+        let bt1 = document.getElementById('bt1')
+        let bt2 = document.getElementById('bt2')
+        let lastXHR
+        bt1.onclick=function(){
+            if(lastXHR){
+                lastXHR.abort()
+            }
+            lastXHR=getNumber()
+        }
+
+        bt2.onclick=function(){
+            if(lastXHR){
+                lastXHR.abort()
+            }
+        }
+
+
+        function getNumber(){
+            let xhr = new XMLHttpRequest()
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState===4&&xhr.status===200){
+                    console.log(xhr.response);
+                }
+            }
+            xhr.open('get','http://localhost:3000/get_code')
+            xhr.send()
+            return xhr
+        }
+    </script>
+</body>
+</html>

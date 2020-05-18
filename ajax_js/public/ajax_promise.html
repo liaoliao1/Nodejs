@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用Promise封装的ajax请求</title>
+</head>
+
+<body>
+    <input type="button" value="点击发送get请求" id="bt1">
+    <input type="button" value="点击发送post请求" id="bt2">
+    <div id="text"></div>
+    <script>
+        let bt1 = document.getElementById('bt1')
+        let bt2 = document.getElementById('bt2')
+        bt1.onclick = function () {
+            let promise = sendAjax('http://localhost:3000/test_get', 'get', { name: 'jack', age: 18 })
+            promise.then((data) => {
+                console.log(data);
+            }).catch(
+                (err) => {
+                    console.log(err);
+                })
+        }
+        bt2.onclick = function () {
+            let promise = sendAjax('http://localhost:3000/test_post', 'post', { name: 'tom', age: 22 })
+            promise.then((data) => {
+                console.log(data);
+            }).catch(
+                (err) => {
+                    console.log(err);
+                })
+        }
+
+
+        function sendAjax(url, method, data) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest()
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState!==4){
+                        return
+                    }
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let resObj={
+                            data:xhr.response,
+                            status:xhr.status,
+                            statusText:xhr.statusText
+                        }
+                        resolve(resObj)
+                    }else{
+                        reject(new Error('出错了'))
+                    }
+                }
+                let dataKeys = Object.keys(data)
+                let str = dataKeys.reduce(function (pre, now) {
+                    return pre += `${now}=${data[now]}&`
+                }, '')
+                if (method.toLowerCase() === 'get') {
+                    url += `?${str}`
+                    xhr.open(method, url)
+                    xhr.send()
+                } else if (method.toLowerCase() === 'post') {
+                    xhr.open(method, url)
+                    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
+                    xhr.send(str)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

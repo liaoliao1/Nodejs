@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery封装的ajax</title>
+
+</head>
+
+<body>
+    <input type="button" value="点击发送get请求" id="bt1">
+    <input type="button" value="点击发送post请求" id="bt2">
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        let bt1 = $('#bt1')
+        let bt2 = $('#bt2')
+        bt1.click(function () {
+            /*   $.ajax('http://localhost:3000/test_get',{
+                  data:{name:'tom',age:18},
+                  method:'get',
+                  success:function(result){
+                      console.log(result);
+                  },
+                  error:function(err){
+                      console.log(err);
+                  }
+              }) */
+            //简写方法
+            $.get('http://localhost:3000/test_get', { name: 'tom', age: 18 }, (data) => {
+                console.log(data);
+            })
+        })
+        bt2.click(function () {
+            //简写方法
+            $.post('http://localhost:3000/test_post', { name: 'jack', age: 22 }, (data) => {
+                console.log(data);
+            })
+        })
+
+    </script>
+
+
+</body>
+
+</html>

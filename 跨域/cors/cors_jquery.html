@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="点击获取get请求数据" id="btn">
+    <input type="button" value="点击获取post请求数据" id="btn2">
+    <script src="../jquery-3.5.1.min.js"></script>
+    <script>
+        let btn = document.getElementById('btn')
+        let btn2 = document.getElementById('btn2')
+        btn.onclick=function(){
+            //标准
+            /* $.ajax('http://localhost:3000/test_get',{
+                method:'GET',
+                dataType:'jsonp',
+                data:{m:1,n:2},
+                success:function(data){
+                    console.log(data);
+                },
+                error:function(err){
+                    console.log(err);
+                }
+            }) */
+
+            //简写
+            $.get('http://localhost:3000/test_get?callback=?',{m:123,n:'hello'},(data)=>{
+                console.log(data);
+            })
+        }
+        btn2.onclick=function(){
+            $.post('http://localhost:3000/test_post',{m:456,n:'world'},(data)=>{
+                console.log(data);
+            })
+        }
+
+    </script>
+</body>
+</html>
